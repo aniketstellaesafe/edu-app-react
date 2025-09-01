@@ -1,37 +1,26 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
-import useAuth from '../utils/useAuth';
+import React from 'react';
 
-export default function Navbar() {
-  const user = useAuth();
-  const navigate = useNavigate();
-
+const Navbar = () => {
+  // Yeh bas ek simple placeholder navbar hai
+  // Isme hum baad me links aur login/logout button daalenge
   return (
-    <header className="bg-white border-b sticky top-0 z-10">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
-        <div className="font-extrabold text-xl">EduApp</div>
-        <nav className="flex-1 flex gap-4">
-          <NavLink to="/" className={({ isActive }) => `hover:underline ${isActive ? 'font-semibold' : ''}`}>Courses</NavLink>
-          <NavLink to="/doubts" className={({ isActive }) => `hover:underline ${isActive ? 'font-semibold' : ''}`}>Doubts</NavLink>
-          <NavLink to="/profile" className={({ isActive }) => `hover:underline ${isActive ? 'font-semibold' : ''}`}>Profile</NavLink>
-        </nav>
-        {user ? (
-          <button
-            onClick={async () => {
-              await signOut(auth);
-              navigate('/auth');
-            }}
-            className="px-3 py-1.5 rounded-lg bg-gray-900 text-white"
-          >
-            Logout
-          </button>
-        ) : (
-          <NavLink to="/auth" className="px-3 py-1.5 rounded-lg bg-gray-900 text-white">
-            Login
-          </NavLink>
-        )}
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex-shrink-0">
+            <h1 className="text-xl font-bold text-gray-800">EduApp</h1>
+          </div>
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {/* Yahan navigation links aayenge */}
+              <a href="/" className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+              <a href="/doubts" className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Doubts</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   );
-}
+};
+
+export default Navbar;

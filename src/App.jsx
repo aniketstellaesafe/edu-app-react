@@ -1,16 +1,18 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
+import Navbar from './components/Navbar';
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div>
       <Navbar />
-      <main className="max-w-5xl mx-auto px-4 py-6 fade-in">
+      <main>
+        {/* Outlet ek placeholder hai. URL ke hisaab se 
+            Courses, Login, ya Signup component yahan dikhega. */}
         <Outlet />
       </main>
-      <footer className="text-center text-sm text-gray-500 py-6">
-        © {new Date().getFullYear()} EduApp
-      </footer>
     </div>
   );
 }
+
+export default App;
