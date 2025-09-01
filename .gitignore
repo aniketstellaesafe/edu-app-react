@@ -1,0 +1,14 @@
+# Secret files (API Keys, etc.)
+.env
+.env.local
+
+# Dependencies (yeh folder bahut bada hota hai)
+node_modules
+
+# Build folder (production code)
+dist
+build
+
+# Log files and cache
+npm-debug.log*
+.DS_Store
