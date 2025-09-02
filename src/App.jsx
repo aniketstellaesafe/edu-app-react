@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
             Courses, Login, ya Signup component yahan dikhega. */}
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }
