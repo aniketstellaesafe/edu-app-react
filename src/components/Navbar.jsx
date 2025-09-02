@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
-  // Yeh bas ek simple placeholder navbar hai
-  // Isme hum baad me links aur login/logout button daalenge
+  const [user, setUser] = useState(null);
+
+  // Firebase user state listener
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,9 +23,44 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {/* Yahan navigation links aayenge */}
-              <a href="/" className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Courses</a>
-              <a href="/doubts" className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium">Doubts</a>
+              {/* Always visible links */}
+              <Link
+                to="/"
+                className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Courses
+              </Link>
+              <Link
+                to="/doubts"
+                className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Doubts
+              </Link>
+
+              {/* Conditional Links */}
+              {user ? (
+                <Link
+                  to="/profile"
+                  className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Profile
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="text-gray-600 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Signup
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

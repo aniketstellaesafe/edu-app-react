@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Link ko import karein
+import { useNavigate, Link } from 'react-router-dom';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -14,6 +14,7 @@ const Login = () => {
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      // ✅ Login ke baad Home page (Courses) pe bhejna hai
       navigate('/');
     } catch (err) {
       setError(err.message);
@@ -25,10 +26,14 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login to EduApp</h2>
+        
         <form onSubmit={handleLogin}>
-          {/* Email aur Password ke fields waise hi rahenge */}
+          {/* Email Input */}
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -41,8 +46,13 @@ const Login = () => {
               required
             />
           </div>
+
+          {/* Password Input */}
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -55,9 +65,11 @@ const Login = () => {
               required
             />
           </div>
-          
+
+          {/* Error Message */}
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
 
+          {/* Submit Button */}
           <div className="flex items-center justify-between">
             <button
               type="submit"
@@ -66,15 +78,17 @@ const Login = () => {
               Sign In
             </button>
           </div>
-          
-          {/* === NAYA CODE YAHAN ADD HUA HAI === */}
+
+          {/* Signup Link */}
           <p className="text-center text-gray-500 text-xs mt-6">
             Don't have an account?{' '}
-            <Link to="/signup" className="font-bold text-blue-500 hover:text-blue-800">
+            <Link
+              to="/signup"
+              className="font-bold text-blue-500 hover:text-blue-800"
+            >
               Sign Up
             </Link>
           </p>
-
         </form>
       </div>
     </div>
