@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles.css';
 
-// Components aur Pages ko import karein
 import App from './App.jsx';
 import Courses from './components/Courses.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx'; // Naye guard ko import karein
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Profile from './pages/Profile.jsx'; // <-- Profile import
 
 const router = createBrowserRouter([
-  // Public Routes: Yeh routes koi bhi dekh sakta hai
+  // Public Routes
   {
     path: '/login',
     element: <Login />,
@@ -21,17 +21,16 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
 
-  // Private Routes: Yeh routes sirf logged-in user hi dekh sakte hain
+  // Private Routes
   {
-    element: <ProtectedRoute />, // Yahan humne guard ko main gate par khada kar diya
+    element: <ProtectedRoute />,
     children: [
-      // Iske andar ke saare raste ab protected hain
       {
         path: '/',
-        element: <App />, // App layout (Navbar, etc.)
+        element: <App />,
         children: [
           { index: true, element: <Courses /> },
-          // { path: 'doubts', element: <Doubts /> }, // Future me yahan aur protected page aayenge
+          { path: 'profile', element: <Profile /> }, // <-- Profile route add kiya
         ],
       },
     ],
