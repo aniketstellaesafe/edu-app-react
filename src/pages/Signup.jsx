@@ -1,89 +1,137 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Link ko import karein
-import { auth } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth'; // Naya user banane ka function
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isPasswordFocus, setIsPasswordFocus] = useState(false);
+
   const navigate = useNavigate();
 
-  // Naya user banane ka function
   const handleSignup = async (e) => {
     e.preventDefault();
     setError(null);
     try {
-      // Firebase ko naya user create karne ke liye bolein
-      await createUserWithEmailAndPassword(auth, email, password);
-      // Signup ke baad, user automatically login ho jaata hai, to use homepage par bhej do
-      navigate('/');
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCred.user, { displayName: name });
+      navigate("/");
     } catch (err) {
-      // Common errors: "email-already-in-use", "weak-password"
       setError(err.message);
-      console.error("Signup Error:", err);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Create your EduApp Account</h2>
-        <form onSubmit={handleSignup}>
-          {/* Email aur Password ke fields */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+    <div className="min-h-screen flex items-start justify-center bg-blue-600 px-4 pt-32">
+      {/* 👆 yahan pt-32 diya hai taki upar bhi free space ho */}
+      
+      <div className="relative bg-white rounded-3xl shadow-xl p-8 pt-32 w-full max-w-md overflow-visible animate-fadeUp">
+        
+        {/* Panda Character */}
+        <div className="absolute -top-28 left-1/2 -translate-x-1/2">
+          <div className="relative w-36 h-36 mx-auto">
+            {/* Head */}
+            <div className="w-36 h-36 bg-white rounded-full border-4 border-black relative">
+              {/* Ears */}
+              <div className="absolute -top-4 left-4 w-10 h-10 bg-black rounded-full"></div>
+              <div className="absolute -top-4 right-4 w-10 h-10 bg-black rounded-full"></div>
+              {/* Eyes */}
+              <div className="absolute top-12 left-9 w-6 h-6 bg-black rounded-full"></div>
+              <div className="absolute top-12 right-9 w-6 h-6 bg-black rounded-full"></div>
+              {/* Nose */}
+              <div className="absolute top-20 left-1/2 -translate-x-1/2 w-4 h-4 bg-black rounded-full"></div>
+            </div>
+
+            {/* Hands */}
+            <div
+              className={`absolute top-10 -left-8 w-16 h-16 bg-black rounded-full transition-all duration-500 ${
+                isPasswordFocus ? "translate-x-10 translate-y-6 rotate-45" : ""
+              }`}
+            ></div>
+            <div
+              className={`absolute top-10 -right-8 w-16 h-16 bg-black rounded-full transition-all duration-500 ${
+                isPasswordFocus ? "-translate-x-10 translate-y-6 -rotate-45" : ""
+              }`}
+            ></div>
+          </div>
+        </div>
+
+        {/* Signup Form */}
+        <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
+        <p className="text-sm text-gray-500 text-center mb-6">
+          Create your EduApp account
+        </p>
+
+        <form onSubmit={handleSignup} className="space-y-4">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+              placeholder="Your Name"
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your email"
               required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+              placeholder="you@example.com"
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Create a strong password"
+              onFocus={() => setIsPasswordFocus(true)}
+              onBlur={() => setIsPasswordFocus(false)}
               required
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+              placeholder="••••••••"
             />
-             <p className="text-xs text-gray-600">Password should be at least 6 characters.</p>
           </div>
 
-          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-          
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-            >
-              Sign Up
-            </button>
-          </div>
+          {/* Error */}
+          {error && <p className="text-red-500 text-xs italic text-center">{error}</p>}
 
-          {/* Waapas Login page par jaane ka link */}
-          <p className="text-center text-gray-500 text-xs mt-6">
-            Already have an account?{' '}
-            <Link to="/login" className="font-bold text-blue-500 hover:text-blue-800">
-              Sign In
-            </Link>
-          </p>
-
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600 transition"
+          >
+            Sign Up
+          </button>
         </form>
+
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 font-semibold hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
-};
-
-export default Signup;
+}
