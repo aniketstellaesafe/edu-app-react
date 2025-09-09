@@ -9,6 +9,7 @@ import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './pages/Profile.jsx'; // <-- Profile import
+import Home from './pages/Home.jsx'; // <-- Home component import kiya
 
 const router = createBrowserRouter([
   // Public Routes
@@ -29,7 +30,8 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
         children: [
-          { index: true, element: <Courses /> },
+           { index: true, element: <Home /> }, // <-- Yahan Courses ki jagah Home set kiya
+          { path: 'courses', element: <Courses /> }, // <-- Courses ka alag route banaya
           { path: 'profile', element: <Profile /> }, // <-- Profile route add kiya
         ],
       },
