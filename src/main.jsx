@@ -1,3 +1,5 @@
+// src/main.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -8,8 +10,11 @@ import Courses from './components/Courses.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-import Profile from './pages/Profile.jsx'; // <-- Profile import
-import Home from './pages/Home.jsx'; // <-- Home component import kiya
+import Profile from './pages/Profile.jsx';
+import Home from './pages/Home.jsx';
+import EditProfile from './pages/EditProfile.jsx';
+import ChangePassword from './pages/ChangePassword.jsx';
+import Upgrade from './pages/Upgrade.jsx'; // <-- Import the new component
 
 const router = createBrowserRouter([
   // Public Routes
@@ -30,9 +35,12 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
         children: [
-           { index: true, element: <Home /> }, // <-- Yahan Courses ki jagah Home set kiya
-          { path: 'courses', element: <Courses /> }, // <-- Courses ka alag route banaya
-          { path: 'profile', element: <Profile /> }, // <-- Profile route add kiya
+          { index: true, element: <Home /> },
+          { path: 'courses', element: <Courses /> },
+          { path: 'profile', element: <Profile /> },
+          { path: 'profile/edit', element: <EditProfile /> },
+          { path: 'profile/change-password', element: <ChangePassword /> },
+          { path: 'upgrade', element: <Upgrade /> }, // <-- Add this new route
         ],
       },
     ],
