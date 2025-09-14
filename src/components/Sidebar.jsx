@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Changed from isCollapsed to isOpen
   const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
 
@@ -65,37 +65,36 @@ const Sidebar = () => {
 
   const handleItemClick = (itemId) => {
     setActiveItem(itemId);
+    setIsOpen(false); // Close sidebar when item is clicked
   };
 
   return (
     <div className="relative">
-      {/* Toggle Button */}
+      {/* Toggle Button - Always visible */}
       <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className={`fixed top-20 z-50 bg-white shadow-lg rounded-r-lg p-2 transition-all duration-300 ${
-          isCollapsed ? 'left-16' : 'left-60'
-        } hover:bg-gray-50`}
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed top-20 left-4 z-50 bg-white shadow-lg rounded-lg p-3 transition-all duration-300 hover:bg-gray-50 hover:shadow-xl border border-gray-200"
       >
         <svg 
-          className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${
-            isCollapsed ? 'rotate-180' : ''
+          className={`w-5 h-5 text-gray-600 transition-transform duration-300 ${
+            isOpen ? 'rotate-90' : ''
           }`} 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
 
-      {/* Sidebar */}
+      {/* Sidebar - Hidden by default */}
       <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-gray-50 shadow-xl transition-all duration-300 ease-in-out z-40 ${
-        isCollapsed ? 'w-16' : 'w-64'
+        isOpen ? 'w-64 translate-x-0' : 'w-64 -translate-x-full'
       }`}>
         
         {/* Header */}
         <div className="p-6 border-b border-gray-200">
-          <div className={`transition-all duration-300 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>
+          <div className={`transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
               MAIN MENU
             </h3>
@@ -112,15 +111,16 @@ const Sidebar = () => {
               onClick={() => handleItemClick(item.id)}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
-              className={`group relative flex items-center rounded-xl transition-all duration-300 overflow-hidden ${
-                isCollapsed ? 'p-3 justify-center' : 'p-4'
-              } ${
+              className={`group relative flex items-center rounded-xl transition-all duration-300 overflow-hidden p-4 ${
                 activeItem === item.id
                   ? `bg-gradient-to-r ${item.gradient} text-white shadow-lg transform scale-105`
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
               style={{
-                animationDelay: `${index * 100}ms`
+                animationDelay: `${index * 100}ms`,
+                transform: isOpen ? 'translateX(0)' : `translateX(-${(index + 1) * 20}px)`,
+                opacity: isOpen ? 1 : 0,
+                transition: `all 0.3s ease ${index * 50}ms`
               }}
             >
               {/* Background Animation */}
@@ -134,20 +134,18 @@ const Sidebar = () => {
               </div>
 
               {/* Title and Description */}
-              {!isCollapsed && (
-                <div className="relative z-10 ml-4 flex-1">
-                  <div className={`font-semibold transition-colors duration-300 ${
-                    activeItem === item.id ? 'text-white' : 'text-gray-800 group-hover:text-white'
-                  }`}>
-                    {item.title}
-                  </div>
-                  <div className={`text-xs transition-colors duration-300 ${
-                    activeItem === item.id ? 'text-blue-100' : 'text-gray-500 group-hover:text-gray-200'
-                  }`}>
-                    {item.description}
-                  </div>
+              <div className="relative z-10 ml-4 flex-1">
+                <div className={`font-semibold transition-colors duration-300 ${
+                  activeItem === item.id ? 'text-white' : 'text-gray-800 group-hover:text-white'
+                }`}>
+                  {item.title}
                 </div>
-              )}
+                <div className={`text-xs transition-colors duration-300 ${
+                  activeItem === item.id ? 'text-blue-100' : 'text-gray-500 group-hover:text-gray-200'
+                }`}>
+                  {item.description}
+                </div>
+              </div>
 
               {/* Active Indicator */}
               {activeItem === item.id && (
@@ -161,9 +159,9 @@ const Sidebar = () => {
         </nav>
 
         {/* Footer */}
-        <div className={`absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 transition-all duration-300 ${
-          isCollapsed ? 'opacity-0' : 'opacity-100'
-        }`}>
+        <div className={`absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 transition-all duration-500 ${
+          isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`} style={{ transitionDelay: isOpen ? '0.3s' : '0s' }}>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-3">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -172,30 +170,13 @@ const Sidebar = () => {
             <p className="text-xs text-gray-500 mt-1">ClassWave Learning Platform</p>
           </div>
         </div>
-
-        {/* Tooltip for collapsed state */}
-        {isCollapsed && hoveredItem && (
-          <div className="fixed left-20 bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg z-50 pointer-events-none transition-all duration-200"
-               style={{
-                 top: `${menuItems.findIndex(item => item.id === hoveredItem) * 60 + 140}px`
-               }}>
-            <div className="text-sm font-medium">
-              {menuItems.find(item => item.id === hoveredItem)?.title}
-            </div>
-            <div className="text-xs text-gray-300">
-              {menuItems.find(item => item.id === hoveredItem)?.description}
-            </div>
-            {/* Arrow */}
-            <div className="absolute left-0 top-1/2 transform -translate-x-1 -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-gray-900"></div>
-          </div>
-        )}
       </aside>
 
-      {/* Overlay for mobile */}
-      {!isCollapsed && (
+      {/* Overlay for mobile and click outside to close */}
+      {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-20 z-30 lg:hidden"
-          onClick={() => setIsCollapsed(true)}
+          className="fixed inset-0 bg-black bg-opacity-20 z-30"
+          onClick={() => setIsOpen(false)}
         ></div>
       )}
 
