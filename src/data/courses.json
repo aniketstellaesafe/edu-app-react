@@ -1,0 +1,241 @@
+[
+  {
+    "id": 1,
+    "title": "React Development Masterclass",
+    "description": "Learn modern React development with hooks, context, and best practices",
+    "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop",
+    "price": "₹299",
+    "originalPrice": "₹4,999",
+    "duration": "40 hours",
+    "students": 12547,
+    "rating": 4.8,
+    "level": "Intermediate",
+    "category": "Web Development",
+    "instructor": "John Doe",
+    "tags": ["Popular", "Bestseller"],
+    "driveFolder": "1A2B3C4D5E6F7G8H9I0J",
+    "curriculum": [
+      {
+        "topic": "Getting Started with React",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "Message from the Teacher",
+            "video_id": "1BKxr2_1ABffcGrkpS9okwYyqq_KqKsc4",
+            "duration": "15 min",
+            "driveLink": "https://drive.google.com/drive/u/3/folders/10m6My1RkJoBm7K0DvSZL6gebLJYy-ZCg"
+          },
+          {
+            "id": "1b",
+            "title": "Setting Up Your Environment",
+            "video_id": "2CdefGhi789jkl012",
+            "duration": "20 min",
+            "driveLink": "https://drive.google.com/file/d/2CdefGhi789jkl012/view"
+          }
+        ]
+      },
+      {
+        "topic": "Hooks and State Management",
+        "lessons": [
+          {
+            "id": "2a",
+            "title": "Understanding useState",
+            "video_id": "3GhiJkl345mno678",
+            "duration": "30 min",
+            "driveLink": "https://drive.google.com/file/d/3GhiJkl345mno678/view"
+          },
+          {
+            "id": "2b",
+            "title": "Using useEffect for side effects",
+            "video_id": "4JklMno901pqr234",
+            "duration": "25 min",
+            "driveLink": "https://drive.google.com/file/d/4JklMno901pqr234/view"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Python for Data Science",
+    "description": "Master Python programming for data analysis and machine learning",
+    "image": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=250&fit=crop",
+    "price": "₹3,499",
+    "originalPrice": "₹5,499",
+    "duration": "35 hours",
+    "students": 8392,
+    "rating": 4.9,
+    "level": "Beginner",
+    "category": "Data Science",
+    "instructor": "Jane Smith",
+    "tags": ["New", "Trending"],
+    "driveFolder": "2B3C4D5E6F7G8H9I0J1K",
+    "curriculum": [
+      {
+        "topic": "Python Fundamentals",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "Variables and Data Types",
+            "video_id": "5MnoPqr567stu890",
+            "duration": "20 min",
+            "driveLink": "https://drive.google.com/file/d/5MnoPqr567stu890/view"
+          },
+          {
+            "id": "1b",
+            "title": "Control Flow and Functions",
+            "video_id": "6PqrStu123vwx456",
+            "duration": "25 min",
+            "driveLink": "https://drive.google.com/file/d/6PqrStu123vwx456/view"
+          }
+        ]
+      },
+      {
+        "topic": "Data Analysis with Pandas",
+        "lessons": [
+          {
+            "id": "2a",
+            "title": "Introduction to Pandas",
+            "video_id": "7StuVwx789yza012",
+            "duration": "30 min",
+            "driveLink": "https://drive.google.com/file/d/7StuVwx789yza012/view"
+          },
+          {
+            "id": "2b",
+            "title": "Working with DataFrames",
+            "video_id": "8VwxYza345bcd678",
+            "duration": "35 min",
+            "driveLink": "https://drive.google.com/file/d/8VwxYza345bcd678/view"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Full Stack Web Development",
+    "description": "Complete web development course covering frontend and backend technologies",
+    "image": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=250&fit=crop",
+    "price": "₹4,999",
+    "originalPrice": "₹7,999",
+    "duration": "60 hours",
+    "students": 9876,
+    "rating": 4.7,
+    "level": "Advanced",
+    "category": "Web Development",
+    "instructor": "Mike Johnson",
+    "tags": ["Popular"],
+    "driveFolder": "3C4D5E6F7G8H9I0J1K2L",
+    "curriculum": [
+      {
+        "topic": "Frontend Development",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "HTML5 & CSS3 Fundamentals",
+            "video_id": "9YzaBcd901efg234",
+            "duration": "45 min",
+            "driveLink": "https://drive.google.com/file/d/9YzaBcd901efg234/view"
+          },
+          {
+            "id": "1b",
+            "title": "JavaScript ES6+",
+            "video_id": "10BcdEfg567hij890",
+            "duration": "55 min",
+            "driveLink": "https://drive.google.com/file/d/10BcdEfg567hij890/view"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Digital Marketing Mastery",
+    "description": "Complete digital marketing course covering SEO, social media, and paid advertising",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+    "price": "₹2,499",
+    "originalPrice": "₹3,999",
+    "duration": "25 hours",
+    "students": 6543,
+    "rating": 4.6,
+    "level": "Beginner",
+    "category": "Marketing",
+    "instructor": "Sarah Wilson",
+    "tags": ["Trending"],
+    "driveFolder": "4D5E6F7G8H9I0J1K2L3M",
+    "curriculum": [
+      {
+        "topic": "SEO Fundamentals",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "Keyword Research",
+            "video_id": "11EfgHij123klm456",
+            "duration": "30 min",
+            "driveLink": "https://drive.google.com/file/d/11EfgHij123klm456/view"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "UI/UX Design Complete Course",
+    "description": "Learn user interface and user experience design from scratch to advanced level",
+    "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop",
+    "price": "₹3,999",
+    "originalPrice": "₹5,999",
+    "duration": "45 hours",
+    "students": 7821,
+    "rating": 4.9,
+    "level": "Intermediate",
+    "category": "Design",
+    "instructor": "Alex Chen",
+    "tags": ["New", "Popular"],
+    "driveFolder": "5E6F7G8H9I0J1K2L3M4N",
+    "curriculum": [
+      {
+        "topic": "Design Principles",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "Color Theory and Typography",
+            "video_id": "12HijKlm789nop012",
+            "duration": "40 min",
+            "driveLink": "https://drive.google.com/file/d/12HijKlm789nop012/view"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Machine Learning with TensorFlow",
+    "description": "Deep dive into machine learning and AI using TensorFlow and Python",
+    "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop",
+    "price": "₹5,999",
+    "originalPrice": "₹8,999",
+    "duration": "50 hours",
+    "students": 4567,
+    "rating": 4.8,
+    "level": "Advanced",
+    "category": "Data Science",
+    "instructor": "Dr. Robert Kim",
+    "tags": ["Bestseller"],
+    "driveFolder": "6F7G8H9I0J1K2L3M4N5O",
+    "curriculum": [
+      {
+        "topic": "Introduction to ML",
+        "lessons": [
+          {
+            "id": "1a",
+            "title": "What is Machine Learning?",
+            "video_id": "13KlmNop345qrs678",
+            "duration": "35 min",
+            "driveLink": "https://drive.google.com/file/d/13KlmNop345qrs678/view"
+          }
+        ]
+      }
+    ]
+  }
+]
