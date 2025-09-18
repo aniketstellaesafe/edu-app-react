@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Backend ka base URL
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://classwave-p3w6.onrender.com';
 
 // .env.local se API Key ko safely access karein
 const API_KEY = import.meta.env.VITE_API_KEY;
