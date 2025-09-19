@@ -10,8 +10,30 @@ import serviceAccount from './firebase-service-account.json' with { type: 'json'
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// =======================================================
+// === YAHAN CORS KA FIX ADD KIYA GAYA HAI ===
+// =======================================================
+const allowedOrigins = [
+  'http://localhost:5173', // Aapke local development ke liye
+  // IMPORTANT: Yahan apni Netlify site ka URL daalein jab woh ban jaaye
+  'https://your-netlify-site-name.netlify.app' 
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); // Hum ab options ke saath cors use kar rahe hain
+// =======================================================
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Firebase Admin SDK setup
@@ -43,27 +65,22 @@ const apiKeyAuth = async (req, res, next) => {
   }
 };
 
-
-// =================================================================
-// ============ COURSE UPLOAD ENDPOINT (YEH BADAL GAYA HAI) ==========
-// =================================================================
+// Course upload endpoint
 app.post('/api/courses/upload', async (req, res) => {
   try {
-    // Ab hum frontend/Postman se 'fileId' lenge
     const { fileId, fileName, fileType, description, category, isFree } = req.body;
     
     if (!fileId || !fileName) {
         return res.status(400).json({ success: false, error: 'fileId and fileName are required.' });
     }
 
-    // Yahan hum Google Drive ka playable URL ("Magic URL") banayenge ✨
     const videoUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
 
     const courseRef = await db.collection('courses').add({
       title: fileName,
       fileId: fileId,
-      fileType: fileType || 'video/mp4', // Default value
-      videoUrl: videoUrl, // Hum ab 'downloadUrl' ki jagah 'videoUrl' save kar rahe hain
+      fileType: fileType || 'video/mp4',
+      videoUrl: videoUrl,
       uploadDate: admin.firestore.FieldValue.serverTimestamp(),
       category: category || 'general',
       isFree: isFree === undefined ? true : isFree,
@@ -100,7 +117,6 @@ app.get('/api/courses', apiKeyAuth, async (req, res) => {
   }
 });
 
-
 // API Key banane ka endpoint
 app.post('/api/generate-key', async (req, res) => {
   try {
@@ -131,7 +147,6 @@ app.post('/api/generate-key', async (req, res) => {
     });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

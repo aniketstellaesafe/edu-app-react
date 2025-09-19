@@ -1,6 +1,7 @@
 # Secret files (API Keys, etc.)
 .env
 .env.local
+backend/firebase-service-account.json
 
 # Dependencies (yeh folder bahut bada hota hai)
 node_modules
